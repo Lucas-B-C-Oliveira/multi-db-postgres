@@ -21,8 +21,14 @@ describe('Postgres Strategy', function () {
         assert.equal(result, true)
     })
 
-    it.only('Register', async function () {
+    it('Register', async function () {
         const result = await context.create(MOCK_HERO_REGISTER)
+        delete result.id
+        assert.deepStrictEqual(result, MOCK_HERO_REGISTER)
+    })
+
+    it('Read', async function () {
+        const [result] = await context.read({ name: MOCK_HERO_REGISTER.name})
         delete result.id
         assert.deepStrictEqual(result, MOCK_HERO_REGISTER)
     })
